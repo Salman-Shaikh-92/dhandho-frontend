@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signInWithRedirect,
+  getRedirectResult,
   signInWithPhoneNumber,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
@@ -36,6 +37,12 @@ export function AuthProvider({ children }) {
       setLoading(false);
       return;
     }
+
+    // Process any pending redirect results
+    getRedirectResult(auth).catch((error) => {
+      console.error("Redirect login error:", error);
+      setAuthError(error?.message || 'Failed to authenticate via redirect.');
+    });
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
