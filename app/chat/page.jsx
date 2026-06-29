@@ -23,14 +23,13 @@ const INITIAL_MESSAGES = [
 ];
 
 export default function ChatPage() {
-  const { signOut } = useFirebaseAuth();
+  const { signOut, user: currentUser } = useFirebaseAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [messages, setMessages] = useState(INITIAL_MESSAGES);
   const [isLoading, setIsLoading] = useState(false);
   const [sessions, setSessions] = useState([]);
   const [activeSessionId, setActiveSessionId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentUser, setCurrentUser] = useState(null);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [settingsModalTab, setSettingsModalTab] = useState('profile');
@@ -469,8 +468,6 @@ export default function ChatPage() {
   return (
     <AuthGate>
       {({ user }) => {
-        if (!currentUser) setCurrentUser(user);
-        
         return (
           <div className="flex h-screen bg-base text-white">
             <Sidebar
