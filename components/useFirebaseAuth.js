@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import {
   onAuthStateChanged,
   signInWithPopup,
+  signInWithRedirect,
   signInWithPhoneNumber,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
@@ -56,7 +57,11 @@ export function AuthProvider({ children }) {
     try {
       await signInWithPopup(auth, getGoogleProvider());
     } catch (error) {
-      setAuthError(error?.message || 'Unable to sign in with Google.');
+      if (error?.code === 'auth/popup-blocked') {
+        await signInWithRedirect(auth, getGoogleProvider());
+      } else {
+        setAuthError(error?.message || 'Unable to sign in with Google.');
+      }
     } finally {
       setActionLoading(false);
     }
