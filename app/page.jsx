@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +8,9 @@ import {
   ArrowRight, Workflow, Gauge, Sparkles, LogOut, Loader2, 
   BarChart3, BrainCircuit, Zap, TrendingUp, Globe, ShieldCheck, ChevronRight
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/firebase/firebaseClient';
 import useFirebaseAuth from '@/components/useFirebaseAuth';
 
 function FeatureCard({ icon: Icon, title, description, delay = 0 }) {
@@ -36,6 +39,16 @@ const INTEGRATIONS = ["Zapier", "Make.com", "HubSpot", "Salesforce", "Stripe", "
 export default function LandingPage() {
   const { user, signOut, signInWithGoogle, loading } = useFirebaseAuth();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        router.push('/chat');
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-accent selection:text-white">
