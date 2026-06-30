@@ -42,13 +42,10 @@ export default function LandingPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        router.push('/chat');
-      }
-    });
-    return () => unsubscribe();
-  }, [router]);
+    if (!loading && user) {
+      router.push('/chat');
+    }
+  }, [user, loading, router]);
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-accent selection:text-white">
