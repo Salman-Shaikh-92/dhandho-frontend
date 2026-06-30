@@ -80,8 +80,8 @@ export default function LandingPage() {
         <div className="sticky top-4 z-50 mx-auto w-full max-w-7xl mb-12">
           <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between py-3 px-5 rounded-full backdrop-blur-xl bg-black/40 border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.5)] transition-all hover:bg-black/60">
             <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="flex items-center gap-3 cursor-pointer"
             >
               <div className="flex h-10 w-10 overflow-hidden items-center justify-center rounded-full bg-black shadow-[0_0_15px_rgba(245,158,11,0.2)] border border-amber-500/20">
@@ -94,8 +94,8 @@ export default function LandingPage() {
             </motion.div>
 
             <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="flex flex-col gap-3 sm:flex-row sm:items-center"
             >
               {loading ? (
