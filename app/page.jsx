@@ -8,7 +8,6 @@ import {
   ArrowRight, Workflow, Gauge, Sparkles, LogOut, Loader2, 
   BarChart3, BrainCircuit, Zap, TrendingUp, Globe, ShieldCheck, ChevronRight
 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase/firebaseClient';
 import useFirebaseAuth from '@/components/useFirebaseAuth';
@@ -39,13 +38,6 @@ const INTEGRATIONS = ["Zapier", "Make.com", "HubSpot", "Salesforce", "Stripe", "
 export default function LandingPage() {
   const { user, signOut, signInWithGoogle, loading } = useFirebaseAuth();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && user) {
-      router.push('/chat');
-    }
-  }, [user, loading, router]);
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] overflow-hidden selection:bg-accent selection:text-white">

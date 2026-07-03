@@ -39,9 +39,9 @@ export default function Sidebar({
     if (!user) return;
     // Live sync the avatar from Firestore
     const db = getFirestore();
-    const unsubscribe = onSnapshot(doc(db, 'users', user.uid), (docSnap) => {
+    const unsubscribe = onSnapshot(doc(db, 'users', user?.uid), (docSnap) => {
       if (docSnap.exists()) {
-        setAvatar(docSnap.data().avatar || user.photoURL || '');
+        setAvatar(docSnap.data().avatar || user?.photoURL || '');
       }
     });
     return () => unsubscribe();
@@ -98,7 +98,7 @@ export default function Sidebar({
             animate={{ width: 280, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
-            className="flex h-full flex-shrink-0 flex-col overflow-hidden border-r border-border bg-surface"
+            className="absolute md:relative z-50 flex h-full flex-shrink-0 flex-col overflow-hidden border-r border-border bg-[#0A0A0A] md:bg-surface shadow-[4px_0_24px_rgba(0,0,0,0.5)] md:shadow-none"
           >
             <div className="flex w-[280px] flex-col h-full">
               <div className="flex items-center justify-between px-4 py-5">
@@ -307,15 +307,15 @@ export default function Sidebar({
                       {avatar ? (
                         <img src={avatar} alt="Profile" className="h-full w-full object-cover" />
                       ) : (
-                        user.displayName?.charAt(0)?.toUpperCase() || user.email?.charAt(0)?.toUpperCase() || 'U'
+                        user?.displayName?.charAt(0)?.toUpperCase() || user?.email?.charAt(0)?.toUpperCase() || 'U'
                       )}
                     </div>
                     <div className="flex flex-1 flex-col overflow-hidden">
                       <span className="truncate text-sm font-bold text-gray-200">
-                        {user.displayName || 'User Account'}
+                        {user?.displayName || 'User Account'}
                       </span>
                       <span className="truncate text-xs font-medium text-gray-500">
-                        {user.email || 'Authenticated'}
+                        {user?.email || 'Authenticated'}
                       </span>
                     </div>
                     <MoreVertical className="h-4 w-4 text-gray-500" />

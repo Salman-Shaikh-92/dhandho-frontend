@@ -52,25 +52,7 @@ export default function AuthGate({ children }) {
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen bg-base px-4 py-10 sm:px-6">
-        <div className="mx-auto max-w-3xl">
-          <div className="rounded-[2rem] border border-border bg-surface p-8 shadow-2xl">
-            <div className="mb-6 flex flex-col gap-3 text-center">
-              <p className="text-xs uppercase tracking-[0.32em] text-accent">Authentication Required</p>
-              <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-                Sign in to continue to Dhandho AI Chat
-              </h1>
-              <p className="max-w-2xl mx-auto text-sm text-gray-400">
-                Use Google or phone login to secure your consultation, protect your session history,
-                and access your business insights from anywhere.
-              </p>
-            </div>
-            <LoginCard />
-          </div>
-        </div>
-      </div>
-    );
+    return <LoginCard />;
   }
 
   return children({ user });

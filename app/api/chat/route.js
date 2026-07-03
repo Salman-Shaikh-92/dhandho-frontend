@@ -64,6 +64,7 @@ function mockResponse(message, history) {
   if (userMessageCount >= 2) {
     return {
       status: 'success',
+      reply: `I recommend ${'Zapier + HubSpot + QuickBooks'}. ${'Automate your lead follow-up, invoice generation, and customer support triage with a connected tool stack.'}`,
       recommended_tool: 'Zapier + HubSpot + QuickBooks',
       solution_summary:
         'Automate your lead follow-up, invoice generation, and customer support triage with a connected tool stack.',

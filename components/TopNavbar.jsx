@@ -27,9 +27,10 @@ export default function TopNavbar({ sidebarOpen, onToggleSidebar, user, onLogout
 
   useEffect(() => {
     if (user) {
-      setAvatar(user.photoURL);
+      setAvatar(user?.photoURL);
       const fetchProfile = async () => {
         try {
+          if (!user?.uid) return;
           const docRef = doc(db, 'users', user.uid);
           const docSnap = await getDoc(docRef);
           if (docSnap.exists() && docSnap.data().avatarBase64) {

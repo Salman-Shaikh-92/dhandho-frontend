@@ -12,7 +12,7 @@ import useFirebaseAuth from '@/components/useFirebaseAuth';
 import ScheduleModal from '@/components/ScheduleModal';
 import SettingsModal from '@/components/SettingsModal';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL && process.env.NEXT_PUBLIC_API_URL !== "http://localhost:8000" ? process.env.NEXT_PUBLIC_API_URL : "";
 
 const INITIAL_MESSAGES = [
   {
@@ -189,7 +189,7 @@ export default function ChatPage() {
         body: JSON.stringify({
           session_id: activeSessionId,
           message: userText,
-          conversation_history: messagesRef.current.filter((m) => m.id !== 'welcome').map(m => ({ role: m.role, text: m.text }))
+          history: messagesRef.current.filter((m) => m.id !== 'welcome').map(m => ({ role: m.role, text: m.text }))
         }),
         signal: abortControllerRef.current.signal
       });
@@ -299,9 +299,12 @@ export default function ChatPage() {
         if (data.conversation_history) {
           setMessages(data.conversation_history);
           messagesRef.current = data.conversation_history;
-        } else if (data.status === 'conversational' || data.reply || data.response) {
+        } else if (data.status === 'success' || data.status === 'conversational' || data.reply || data.response) {
           const aiMsgId = `ai-${Date.now()}`;
-          const aiMsgText = data.reply || data.response || data.text || "";
+          let aiMsgText = data.reply || data.response || data.text || "";
+          if (!aiMsgText && data.status === 'success') {
+            aiMsgText = `I recommend **${data.recommended_tool}**. ${data.solution_summary}`;
+          }
           setMessages((prev) => {
             const next = [...prev, { id: aiMsgId, role: 'ai', text: aiMsgText, recommendation: !!data.tool_recommendations }];
             messagesRef.current = next;
@@ -469,7 +472,14 @@ export default function ChatPage() {
     <AuthGate>
       {({ user }) => {
         return (
-          <div className="flex h-screen bg-base text-white">
+          <div className="flex h-[100dvh] bg-base text-white relative">
+            {/* Mobile Overlay */}
+            {sidebarOpen && (
+              <div 
+                className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+                onClick={() => setSidebarOpen(false)}
+              />
+            )}
             <Sidebar
               isOpen={sidebarOpen}
               onToggle={() => setSidebarOpen((open) => !open)}

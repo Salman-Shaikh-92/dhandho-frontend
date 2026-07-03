@@ -47,6 +47,13 @@ export function AuthProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      if (currentUser && typeof window !== 'undefined') {
+        const currentPath = window.location.pathname;
+        if (currentPath === '/' || currentPath === '/login') {
+          window.location.href = '/chat';
+        }
+      }
     });
     return unsubscribe;
   }, []);
