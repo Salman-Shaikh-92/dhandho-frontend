@@ -12,7 +12,7 @@ import useFirebaseAuth from '@/components/useFirebaseAuth';
 import ScheduleModal from '@/components/ScheduleModal';
 import SettingsModal from '@/components/SettingsModal';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL && process.env.NEXT_PUBLIC_API_URL !== "http://localhost:8000" ? process.env.NEXT_PUBLIC_API_URL : "";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 const INITIAL_MESSAGES = [
   {
