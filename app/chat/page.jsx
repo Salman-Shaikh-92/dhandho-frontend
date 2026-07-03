@@ -357,7 +357,7 @@ export default function ChatPage() {
     handleStopGenerating();
     
     // 2. Prevent creating multiple empty chats and piling them up in the sidebar
-    if (messagesRef.current.length <= 1) {
+    if (messagesRef.current.length <= 1 && activeSessionId) {
       // We are already on an empty chat, just focus it
       return; 
     }
