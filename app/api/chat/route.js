@@ -125,7 +125,7 @@ async function callGemini(messages) {
   }));
 
   const body = {
-    system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
     contents,
     generationConfig: {
       temperature: 0.7,
@@ -145,11 +145,15 @@ async function callGemini(messages) {
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
   // Try to extract embedded JSON from the reply
-  const jsonMatch = text.match(/\{[\s\S]*"status"\s*:\s*"(success|conversational)"[\s\S]*\}/);
-  if (jsonMatch) {
+  const firstBrace = text.indexOf('{');
+  const lastBrace = text.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
     try {
-      const parsed = JSON.parse(jsonMatch[0]);
-      return parsed;
+      const jsonStr = text.slice(firstBrace, lastBrace + 1);
+      const parsed = JSON.parse(jsonStr);
+      if (parsed.status === 'success' || parsed.status === 'conversational') {
+        return parsed;
+      }
     } catch {
       // Fall through
     }
