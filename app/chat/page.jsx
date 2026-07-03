@@ -518,6 +518,7 @@ export default function ChatPage() {
                     onSendMessage={handleSendMessage} 
                     onEditMessage={handleEditMessage} 
                     onScheduleClick={() => setShowScheduleModal(true)}
+                    activeSessionId={activeSessionId}
                   />
                   <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} onStop={handleStopGenerating} />
                 </div>

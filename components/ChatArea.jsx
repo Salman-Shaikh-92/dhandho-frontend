@@ -97,11 +97,39 @@ function BlurredListItem({ node, children, onScheduleClick, ...props }) {
   );
 }
 
-export default function ChatArea({ messages, isLoading, onSendMessage, onEditMessage, onScheduleClick }) {
+import { getAuth } from 'firebase/auth';
+
+export default function ChatArea({ messages, isLoading, onSendMessage, onEditMessage, onScheduleClick, activeSessionId }) {
   const router = useRouter();
   const bottomRef = useRef(null);
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+
+  const handleViewReport = async () => {
+    if (!activeSessionId) {
+      router.push('/report');
+      return;
+    }
+    setIsGeneratingReport(true);
+    try {
+      const auth = getAuth();
+      const token = await auth.currentUser?.getIdToken();
+      const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "";
+      const res = await fetch(`${API_BASE_URL}/api/conversations/${activeSessionId}/roi`, {
+        method: "POST",
+        headers: token ? { "Authorization": `Bearer ${token}` } : {}
+      });
+      if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem('dhandho_report', JSON.stringify(data));
+      }
+    } catch (e) {
+      console.error("Failed to generate ROI report:", e);
+    }
+    setIsGeneratingReport(false);
+    router.push('/report');
+  };
 
   useEffect(() => {
     if (bottomRef.current) {
@@ -358,11 +386,21 @@ export default function ChatArea({ messages, isLoading, onSendMessage, onEditMes
 
               {message.recommendation && editingId !== message.id && (
                 <button
-                  onClick={() => router.push('/report')}
-                  className="mt-3 flex items-center gap-2 rounded-lg bg-amber-600 px-3 py-2 text-xs font-semibold text-white transition-all hover:bg-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.15)]"
+                  onClick={handleViewReport}
+                  disabled={isGeneratingReport}
+                  className="mt-3 flex items-center gap-2 rounded-lg bg-amber-600 px-3 py-2 text-xs font-semibold text-white transition-all hover:bg-amber-500 hover:shadow-[0_0_15px_rgba(245,158,11,0.15)] disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <FileText className="h-3.5 w-3.5" />
-                  View Detailed Report
+                  {isGeneratingReport ? (
+                    <>
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      Generating ROI Report...
+                    </>
+                  ) : (
+                    <>
+                      <FileText className="h-3.5 w-3.5" />
+                      View Detailed Report
+                    </>
+                  )}
                 </button>
               )}
             </div>
