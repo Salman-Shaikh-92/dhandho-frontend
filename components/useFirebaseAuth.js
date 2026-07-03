@@ -73,6 +73,9 @@ export function AuthProvider({ children }) {
     } catch (error) {
       if (error?.code === 'auth/popup-blocked') {
         await signInWithRedirect(auth, getGoogleProvider());
+      } else if (error?.code === 'auth/popup-closed-by-user' || error?.code === 'auth/cancelled-popup-request') {
+        // User intentionally closed the popup, so don't show an error
+        console.log("User cancelled login.");
       } else {
         setAuthError(error?.message || 'Unable to sign in with Google.');
       }

@@ -113,7 +113,6 @@ export default function ChatInput({ onSendMessage, isLoading, onStop }) {
             ref={textareaRef}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            onKeyDown={handleKeyDown}
             placeholder="Ask Dhandho AI..."
             rows={1}
             className="w-full resize-none bg-transparent px-4 py-3.5 text-sm font-medium text-white placeholder-gray-500 outline-none"
