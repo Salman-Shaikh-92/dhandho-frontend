@@ -7,18 +7,19 @@ import { motion } from 'framer-motion';
 export function MetricCard({ icon: Icon, label, value, accent }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="rounded-xl border border-border bg-surface p-5"
+      transition={{ duration: 0.5 }}
+      className="group rounded-2xl border border-white/10 bg-[#111111]/80 p-6 backdrop-blur-xl shadow-2xl transition-all hover:-translate-y-1 hover:border-amber-500/30 overflow-hidden relative"
     >
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-400">{label}</p>
-        <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${accent}`}>
-          <Icon className="h-4 w-4 text-white" />
+      <div className="absolute -inset-1 bg-gradient-to-r from-transparent to-amber-500/0 group-hover:to-amber-500/5 transition-all duration-500" />
+      <div className="relative z-10 flex items-center justify-between">
+        <p className="text-xs font-bold uppercase tracking-widest text-gray-500">{label}</p>
+        <div className={`flex h-10 w-10 items-center justify-center rounded-xl shadow-lg transition-transform group-hover:scale-110 ${accent.replace('bg-', 'bg-').replace('-600', '-500/20 text-').replace('text-bg-', 'text-')} border border-white/10`}>
+          <Icon className="h-5 w-5" style={{ color: accent.includes('blue') ? '#3b82f6' : accent.includes('emerald') ? '#10b981' : '#8b5cf6' }} />
         </div>
       </div>
-      <p className="mt-4 text-3xl font-semibold tracking-tight text-white">{value}</p>
+      <p className="relative z-10 mt-6 text-4xl font-black tracking-tight text-white">{value}</p>
     </motion.div>
   );
 }
@@ -27,21 +28,22 @@ export function MetricCard({ icon: Icon, label, value, accent }) {
 export function ToolCard({ icon: Icon, name, description, category }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-5"
+      transition={{ duration: 0.5, delay: 0.1 }}
+      className="group flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#111111]/80 p-6 backdrop-blur-xl shadow-2xl transition-all hover:-translate-y-1 hover:border-amber-500/30 overflow-hidden relative"
     >
-      <div className="flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
-          <Icon className="h-4.5 w-4.5 text-accent" />
+      <div className="absolute -inset-1 bg-gradient-to-br from-transparent to-amber-500/0 group-hover:to-amber-500/5 transition-all duration-500" />
+      <div className="relative z-10 flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/10 border border-amber-500/20 transition-transform group-hover:scale-110 group-hover:bg-amber-500/20">
+          <Icon className="h-6 w-6 text-amber-500" />
         </div>
         <div>
-          <p className="text-sm font-semibold text-white">{name}</p>
-          <p className="text-xs text-gray-500">{category}</p>
+          <p className="text-lg font-bold text-white">{name}</p>
+          <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">{category}</p>
         </div>
       </div>
-      <p className="text-sm leading-relaxed text-gray-400">{description}</p>
+      <p className="relative z-10 text-sm leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors mt-2">{description}</p>
     </motion.div>
   );
 }
