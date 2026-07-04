@@ -44,6 +44,18 @@ export default function ChatPage() {
     [messages]
   );
 
+  // Prevent back button from navigating to the landing page
+  useEffect(() => {
+    window.history.pushState(null, null, window.location.href);
+    const handlePopState = () => {
+      window.history.pushState(null, null, window.location.href);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
   async function fetchSidebarConversations() {
     const auth = getAuth();
     const token = await auth.currentUser?.getIdToken();
