@@ -132,20 +132,27 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
   ];
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-md px-4">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/80 backdrop-blur-md px-4 py-4 sm:p-6 overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="w-full max-w-5xl h-[650px] max-h-[90vh] rounded-[24px] border border-white/10 bg-[#0A0A0A] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] ring-1 ring-inset ring-white/5 relative flex overflow-hidden"
+        className="w-full max-w-5xl h-[90vh] sm:h-[650px] max-h-full rounded-[24px] border border-white/10 bg-[#0A0A0A] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] ring-1 ring-inset ring-white/5 relative flex flex-col md:flex-row overflow-hidden"
       >
         {/* Left Sidebar for Tabs */}
-        <div className="w-64 border-r border-white/5 bg-[#111] flex flex-col">
-          <div className="p-6">
+        <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-white/5 bg-[#111] flex flex-col shrink-0 overflow-x-auto md:overflow-x-visible">
+          <div className="p-4 md:p-6 flex justify-between items-center md:block">
             <h2 className="text-xl font-bold text-white tracking-tight">Settings</h2>
+            {/* Mobile close button inside header so users can close easily on small screens */}
+            <button 
+              onClick={onClose}
+              className="md:hidden rounded-full p-2 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
-          <div className="flex-1 px-3 space-y-1">
+          <div className="flex md:flex-col flex-row gap-2 px-3 pb-3 md:pb-0 md:space-y-1 overflow-x-auto snap-x hide-scrollbar">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -153,14 +160,14 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all ${
+                  className={`flex shrink-0 snap-start items-center gap-2 md:gap-3 rounded-lg px-3 md:px-4 py-2.5 text-sm font-medium transition-all ${
                     isActive
                       ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
                       : 'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
-                  {tab.label}
+                  <span className="whitespace-nowrap">{tab.label}</span>
                 </button>
               );
             })}
@@ -168,10 +175,10 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
         </div>
 
         {/* Right Content Area */}
-        <div className="flex-1 flex flex-col bg-[#0A0A0A] relative">
+        <div className="flex-1 flex flex-col bg-[#0A0A0A] relative overflow-hidden">
           <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-500/30 to-transparent"></div>
           
-          <div className="flex items-center justify-between px-8 py-6 border-b border-white/5">
+          <div className="hidden md:flex items-center justify-between px-8 py-6 border-b border-white/5 shrink-0">
             <h3 className="text-lg font-bold text-white">
               {tabs.find(t => t.id === activeTab)?.label}
             </h3>
@@ -183,7 +190,7 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
             </button>
           </div>
 
-          <div className="p-8 overflow-y-auto flex-1">
+          <div className="p-4 md:p-8 overflow-y-auto flex-1">
             <AnimatePresence mode="wait">
               {activeTab === 'profile' && (
                 <motion.div
@@ -191,15 +198,22 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="space-y-8"
+                  className="space-y-6 md:space-y-8"
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col md:hidden mb-2">
+                    <h3 className="text-xl font-bold text-white">{tabs.find(t => t.id === activeTab)?.label}</h3>
+                  </div>
+
+                  <div className="flex flex-col md:hidden">
+                    <p className="text-sm text-gray-400">Manage your personal information and company details.</p>
+                  </div>
+                  <div className="hidden md:flex flex-col">
                     <h4 className="text-xl font-bold text-white">Profile Details</h4>
                     <p className="text-sm text-gray-400">Manage your personal information and company details.</p>
                   </div>
 
-                  <div className="flex items-center gap-6 bg-white/5 border border-white/10 rounded-2xl p-6">
-                    <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-700 shadow-[0_0_20px_rgba(245,158,11,0.2)] text-3xl font-black text-black overflow-hidden group">
+                  <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6 bg-white/5 border border-white/10 rounded-2xl p-4 md:p-6 text-center md:text-left">
+                    <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-amber-700 shadow-[0_0_20px_rgba(245,158,11,0.2)] text-3xl font-black text-black overflow-hidden group shrink-0">
                       {avatarPreview ? (
                         <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
                       ) : (
@@ -212,10 +226,10 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                         <Upload className="h-6 w-6 text-white" />
                       </div>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 w-full flex flex-col items-center md:items-start">
                       <h4 className="text-xl font-bold text-white">{user?.displayName || 'User Account'}</h4>
-                      <p className="text-sm text-amber-500 mb-2">Administrator / Founder</p>
-                      <div className="flex gap-3">
+                      <p className="text-sm text-amber-500 mb-3 md:mb-2">Administrator / Founder</p>
+                      <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 w-full">
                         <input 
                           type="file" 
                           ref={fileInputRef} 
@@ -239,7 +253,7 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 pt-2">
                     <div className="space-y-1.5">
                       <label className="text-sm font-medium text-gray-300">Full Name</label>
                       <input 
@@ -252,7 +266,7 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                     </div>
                     
                     <div className="space-y-1.5">
-                      <label className="text-sm font-medium text-gray-300">Email Address <span className="text-gray-500 text-xs ml-2">(Verified)</span></label>
+                      <label className="text-sm font-medium text-gray-300">Email Address <span className="text-gray-500 text-xs ml-1">(Verified)</span></label>
                       <input 
                         type="text" 
                         disabled 
@@ -291,7 +305,7 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
 
                   <div className="pt-6 border-t border-white/5">
                     <h5 className="text-sm font-bold text-white mb-4">Security</h5>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                       <div className="space-y-1.5">
                         <label className="text-sm font-medium text-gray-300">New Password</label>
                         <input 
@@ -316,7 +330,7 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                     <p className="text-xs text-gray-500 mt-3">Leave blank if you don't want to change your password. Only applies to email/password accounts.</p>
                   </div>
 
-                  <div className="pt-6 border-t border-white/5 flex justify-end gap-3">
+                  <div className="pt-6 border-t border-white/5 flex justify-end gap-3 pb-8 md:pb-0">
                     <button 
                       onClick={onClose}
                       className="px-5 py-2.5 rounded-xl border border-white/10 bg-transparent text-sm font-medium text-white hover:bg-white/5 transition-all"
@@ -342,9 +356,12 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                   exit={{ opacity: 0, y: -10 }}
                   className="space-y-6"
                 >
+                  <div className="flex flex-col md:hidden mb-2">
+                    <h3 className="text-xl font-bold text-white">{tabs.find(t => t.id === activeTab)?.label}</h3>
+                  </div>
                   <div>
                     <h4 className="text-sm font-medium text-gray-300 mb-3">Theme Preferences</h4>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <button className="flex flex-col items-center justify-center gap-3 rounded-xl border border-amber-500 bg-amber-500/10 p-4 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.15)] transition-all">
                         <Moon className="h-6 w-6" />
                         <span className="text-sm font-bold">Dark Mode</span>
@@ -367,13 +384,13 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                   exit={{ opacity: 0, y: -10 }}
                   className="space-y-6"
                 >
-                  <div className="flex justify-between items-end mb-4">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-4">
                     <div className="flex flex-col">
                       <h4 className="text-xl font-bold text-white">Choose Your Plan</h4>
                       <p className="text-sm text-gray-400">Unlock the full power of Dhandho AI to automate your business.</p>
                     </div>
                     
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 self-end md:self-auto">
                       <label className="text-sm text-gray-400 font-medium">Currency:</label>
                       <select 
                         value={currency} 
@@ -389,7 +406,7 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-8 md:pb-0">
                     {/* Free Plan Card */}
                     <div className="rounded-2xl border border-white/10 bg-white/5 p-6 flex flex-col relative overflow-hidden transition-all hover:border-white/20">
                       <div className="mb-5">
@@ -402,19 +419,19 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
 
                       <div className="flex-1 space-y-3.5 mb-8">
                         <div className="flex items-start gap-2 text-sm text-gray-300">
-                          <Check className="h-4 w-4 text-gray-500 mt-0.5" />
+                          <Check className="h-4 w-4 text-gray-500 mt-0.5 shrink-0" />
                           <span>Basic AI Consultations</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-gray-300">
-                          <Check className="h-4 w-4 text-gray-500 mt-0.5" />
+                          <Check className="h-4 w-4 text-gray-500 mt-0.5 shrink-0" />
                           <span>Standard Processing</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-gray-500">
-                          <X className="h-4 w-4 mt-0.5 opacity-50" />
+                          <X className="h-4 w-4 mt-0.5 opacity-50 shrink-0" />
                           <span className="opacity-50">Custom Blueprints</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-gray-500">
-                          <X className="h-4 w-4 mt-0.5 opacity-50" />
+                          <X className="h-4 w-4 mt-0.5 opacity-50 shrink-0" />
                           <span className="opacity-50">Admin Booking</span>
                         </div>
                       </div>
@@ -436,19 +453,19 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
 
                       <div className="flex-1 space-y-3.5 mb-8 relative z-10">
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-blue-400 mt-0.5" />
+                          <Check className="h-4 w-4 text-blue-400 mt-0.5 shrink-0" />
                           <span>Advanced AI Models</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-blue-400 mt-0.5" />
+                          <Check className="h-4 w-4 text-blue-400 mt-0.5 shrink-0" />
                           <span>Faster Processing</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-blue-400 mt-0.5" />
+                          <Check className="h-4 w-4 text-blue-400 mt-0.5 shrink-0" />
                           <span>Basic Automation</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-gray-500">
-                          <X className="h-4 w-4 mt-0.5 opacity-50" />
+                          <X className="h-4 w-4 mt-0.5 opacity-50 shrink-0" />
                           <span className="opacity-50">1-on-1 Calls</span>
                         </div>
                       </div>
@@ -477,19 +494,19 @@ export default function SettingsModal({ isOpen, onClose, initialTab = 'profile' 
 
                       <div className="flex-1 space-y-3.5 mb-8 relative z-10">
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-amber-500 mt-0.5" />
+                          <Check className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                           <span>Everything in Pro</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-amber-500 mt-0.5" />
+                          <Check className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                           <span>Instant Priority Queue</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-amber-500 mt-0.5" />
+                          <Check className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                           <span>Custom Blueprints</span>
                         </div>
                         <div className="flex items-start gap-2 text-sm text-white">
-                          <Check className="h-4 w-4 text-amber-500 mt-0.5" />
+                          <Check className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
                           <span>1-on-1 Strategy Calls</span>
                         </div>
                       </div>
