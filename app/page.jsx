@@ -195,6 +195,47 @@ export default function LandingPage() {
           </motion.div>
         </section>
 
+        {/* Social Proof / Trusted By */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-20 flex flex-col items-center justify-center w-full relative z-20"
+        >
+          <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">Trusted by innovative teams worldwide</p>
+          <div className="flex flex-wrap justify-center items-center gap-10 opacity-60 grayscale sm:gap-20 transition-all hover:opacity-80">
+            <span className="text-2xl font-black tracking-tighter text-white">AcmeCorp</span>
+            <span className="text-2xl font-black tracking-tighter text-white">GlobalScale</span>
+            <span className="text-2xl font-black tracking-tighter text-white">TechVision</span>
+            <span className="text-2xl font-black tracking-tighter text-white">OmniFlow</span>
+            <span className="text-2xl font-black tracking-tighter text-white">Nexus</span>
+          </div>
+        </motion.div>
+
+        {/* Enterprise Stats Section */}
+        <section className="mt-24 sm:mt-32 relative z-20 mx-auto max-w-5xl">
+          <div className="rounded-[3rem] border border-white/5 bg-gradient-to-b from-[#111111]/80 to-transparent p-8 sm:p-16 shadow-[0_0_80px_rgba(245,158,11,0.05)] backdrop-blur-xl">
+            <div className="grid grid-cols-2 gap-8 md:grid-cols-4 text-center">
+              <div className="flex flex-col items-center">
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">$50M+</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Revenue Generated</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">2M+</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Manual Hours Saved</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">100%</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Data Privacy</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">24/7</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Automated Output</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Infinite Scrolling Integrations Banner */}
         <motion.section 
           initial={{ opacity: 0 }}
@@ -258,6 +299,71 @@ export default function LandingPage() {
                 <p className="mt-4 text-base leading-relaxed text-gray-400">{step.desc}</p>
               </motion.div>
             ))}
+          </div>
+        </section>
+
+        </section>
+
+        {/* Testimonials */}
+        <section className="mt-32 sm:mt-40 relative z-20 max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+              Don't just take our word for it.
+            </h2>
+            <p className="mt-6 text-lg text-gray-400 font-medium">Hear how Dhandho AI transformed these businesses.</p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="rounded-[2.5rem] border border-white/5 bg-gradient-to-br from-[#111111]/90 to-[#111111]/40 p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden group hover:border-amber-500/20 transition-all"
+            >
+              <div className="absolute top-8 right-8 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-500">
+                <svg className="h-20 w-20 text-amber-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <p className="text-xl font-medium leading-relaxed text-gray-300 italic">
+                  "Dhandho AI mapped out our chaotic sales pipeline in 10 minutes. The bespoke Zapier blueprint they provided saves our SDRs 40 hours a week. It feels like magic."
+                </p>
+                <div className="mt-10 flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                    <span className="text-lg font-bold text-amber-500">SJ</span>
+                  </div>
+                  <div>
+                    <p className="font-bold text-white text-lg">Sarah Jenkins</p>
+                    <p className="text-sm text-amber-500 font-medium">VP of Sales, TechCorp</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="rounded-[2.5rem] border border-white/5 bg-gradient-to-br from-[#111111]/90 to-[#111111]/40 p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden group hover:border-orange-500/20 transition-all"
+            >
+              <div className="absolute top-8 right-8 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-500">
+                <svg className="h-20 w-20 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/></svg>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <p className="text-xl font-medium leading-relaxed text-gray-300 italic">
+                  "We were drowning in manual invoice entry. The automation roadmap from Dhandho completely eliminated human error and cut our operational costs by 30% almost instantly."
+                </p>
+                <div className="mt-10 flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-full bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+                    <span className="text-lg font-bold text-orange-500">DC</span>
+                  </div>
+                  <div>
+                    <p className="font-bold text-white text-lg">David Chen</p>
+                    <p className="text-sm text-orange-500 font-medium">Founder, E-Com Logistics</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </section>
 
