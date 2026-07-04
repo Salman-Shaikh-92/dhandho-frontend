@@ -204,11 +204,11 @@ export default function LandingPage() {
         >
           <p className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-8">Trusted by innovative teams worldwide</p>
           <div className="flex flex-wrap justify-center items-center gap-10 opacity-60 grayscale sm:gap-20 transition-all hover:opacity-80">
-            <span className="text-2xl font-black tracking-tighter text-white">AcmeCorp</span>
-            <span className="text-2xl font-black tracking-tighter text-white">GlobalScale</span>
-            <span className="text-2xl font-black tracking-tighter text-white">TechVision</span>
+            <span className="text-2xl font-black tracking-tighter text-white">TechNova</span>
+            <span className="text-2xl font-black tracking-tighter text-white">Elevate Partners</span>
+            <span className="text-2xl font-black tracking-tighter text-white">Vanguard</span>
             <span className="text-2xl font-black tracking-tighter text-white">OmniFlow</span>
-            <span className="text-2xl font-black tracking-tighter text-white">Nexus</span>
+            <span className="text-2xl font-black tracking-tighter text-white">Apex Growth</span>
           </div>
         </motion.div>
 
@@ -217,20 +217,20 @@ export default function LandingPage() {
           <div className="rounded-[3rem] border border-white/5 bg-gradient-to-b from-[#111111]/80 to-transparent p-8 sm:p-16 shadow-[0_0_80px_rgba(245,158,11,0.05)] backdrop-blur-xl">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4 text-center">
               <div className="flex flex-col items-center">
-                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">$50M+</p>
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">$5M+</p>
                 <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Revenue Generated</p>
               </div>
               <div className="flex flex-col items-center">
-                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">2M+</p>
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">50,000+</p>
                 <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Manual Hours Saved</p>
               </div>
               <div className="flex flex-col items-center">
-                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">100%</p>
-                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Data Privacy</p>
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">AES-256</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Bank-Level Security</p>
               </div>
               <div className="flex flex-col items-center">
-                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">24/7</p>
-                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Automated Output</p>
+                <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">99.9%</p>
+                <p className="mt-3 text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-widest">Uptime Guarantee</p>
               </div>
             </div>
           </div>
@@ -265,6 +265,52 @@ export default function LandingPage() {
             </motion.div>
           </div>
         </motion.section>
+
+        {/* Old Way vs Dhandho Way */}
+        <section className="mt-32 sm:mt-40 relative z-20 mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+              Stop running your business on spreadsheets.
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[2.5rem] border border-red-500/20 bg-red-500/5 p-10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-6 opacity-30 text-red-500">
+                <svg className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-6 text-red-400">The Old Way</h3>
+              <ul className="space-y-4">
+                <li className="flex gap-3 text-gray-400"><span className="text-red-500">✕</span> Manual data entry across 5 different apps.</li>
+                <li className="flex gap-3 text-gray-400"><span className="text-red-500">✕</span> Leads slipping through the cracks due to slow replies.</li>
+                <li className="flex gap-3 text-gray-400"><span className="text-red-500">✕</span> Human error causing expensive operational mistakes.</li>
+                <li className="flex gap-3 text-gray-400"><span className="text-red-500">✕</span> Scaling requires hiring more and more people.</li>
+              </ul>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="rounded-[2.5rem] border border-green-500/20 bg-green-500/5 p-10 relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 p-6 opacity-30 text-green-500">
+                <svg className="h-16 w-16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-6 text-green-400">The Dhandho Way</h3>
+              <ul className="space-y-4">
+                <li className="flex gap-3 text-gray-300"><span className="text-green-500">✓</span> Automated pipelines syncing data instantly.</li>
+                <li className="flex gap-3 text-gray-300"><span className="text-green-500">✓</span> AI agents responding to leads and closing deals 24/7.</li>
+                <li className="flex gap-3 text-gray-300"><span className="text-green-500">✓</span> Zero human error with perfectly mapped workflows.</li>
+                <li className="flex gap-3 text-gray-300"><span className="text-green-500">✓</span> Scale revenue exponentially without increasing headcount.</li>
+              </ul>
+            </motion.div>
+          </div>
+        </section>
 
         {/* How it Works Section */}
         <section className="mt-32 sm:mt-48 relative z-20">
@@ -411,6 +457,28 @@ export default function LandingPage() {
               description="Your operational data is heavily protected. We use bank-level encryption and secure auth to keep your strategy private."
               delay={0.6}
             />
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="mt-40 relative z-20 mx-auto max-w-4xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
+              Frequently Asked Questions
+            </h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              { q: "How long does it take to implement?", a: "Once your custom blueprint is generated by our AI consultant, implementation usually takes between 3 to 10 days depending on the complexity of your current software stack." },
+              { q: "Do I need to know how to code?", a: "Not at all. Dhandho AI focuses on no-code and low-code solutions like Zapier and Make.com. You won't need to write a single line of code." },
+              { q: "Is my company data secure?", a: "Absolutely. We do not store your proprietary business data, and all auth relies on enterprise-grade Firebase security. The AI only analyzes the structural bottlenecks you describe." },
+              { q: "What if my software stack is very niche?", a: "Our AI is trained on thousands of API endpoints and integrations. If it has an API or webhooks, we can automate it." }
+            ].map((faq, i) => (
+              <div key={i} className="rounded-2xl border border-white/10 bg-[#111111]/60 p-6 backdrop-blur-md transition-all hover:border-amber-500/30">
+                <h3 className="text-lg font-bold text-white">{faq.q}</h3>
+                <p className="mt-2 text-gray-400 leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
           </div>
         </section>
 
