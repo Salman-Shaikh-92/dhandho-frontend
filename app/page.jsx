@@ -302,13 +302,11 @@ export default function LandingPage() {
           </div>
         </section>
 
-        </section>
-
         {/* Testimonials */}
         <section className="mt-32 sm:mt-40 relative z-20 max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl">
-              Don't just take our word for it.
+              Don&apos;t just take our word for it.
             </h2>
             <p className="mt-6 text-lg text-gray-400 font-medium">Hear how Dhandho AI transformed these businesses.</p>
           </div>
