@@ -249,52 +249,64 @@ export default function Sidebar({
 
                 <AnimatePresence>
                   {settingsOpen && (
-                    <motion.div
-                      ref={settingsRef}
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.15 }}
-                      className="absolute bottom-16 left-3 right-3 z-40 mb-2 rounded-xl border border-white/10 bg-[#1A1A1A] p-1.5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)]"
-                    >
-                      <div className="mb-1.5 p-0.5">
+                    <>
+                      {/* Mobile Backdrop */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+                        onClick={() => setSettingsOpen(false)}
+                      />
+                      
+                      <motion.div
+                        ref={settingsRef}
+                        initial={{ opacity: 0, y: 100, scale: 1 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 100, scale: 1 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl border-t border-white/10 bg-[#1A1A1A] p-4 shadow-[0_-10px_40px_rgba(0,0,0,0.8)] md:absolute md:bottom-16 md:left-3 md:right-3 md:z-40 md:mb-2 md:rounded-xl md:border md:p-1.5 md:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] md:!translate-y-0"
+                      >
+                        <div className="mx-auto mb-4 h-1 w-12 rounded-full bg-white/20 md:hidden" />
+                        <div className="mb-1.5 md:p-0.5">
+                          <button 
+                            onClick={() => {
+                              setSettingsOpen(false);
+                              if (onSettingsClick) onSettingsClick('subscription');
+                            }}
+                            className="group flex w-full items-center justify-between gap-3 rounded-lg bg-gradient-to-r from-amber-500 to-amber-700 p-4 md:p-3 shadow-[0_4px_15px_rgba(245,158,11,0.15)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.3)] transition-all cursor-pointer border border-amber-400/30"
+                          >
+                            <div className="flex flex-col items-start">
+                              <span className="text-xs md:text-[11px] font-black text-black uppercase tracking-wider leading-tight">Free Plan</span>
+                              <span className="text-[11px] md:text-[10px] font-medium text-white/90 mt-0.5">Upgrade for full access</span>
+                            </div>
+                            <Crown className="h-5 w-5 md:h-4 md:w-4 text-white group-hover:scale-110 transition-transform" />
+                          </button>
+                        </div>
+                        
                         <button 
                           onClick={() => {
                             setSettingsOpen(false);
-                            if (onSettingsClick) onSettingsClick('subscription');
+                            if (onSettingsClick) onSettingsClick();
                           }}
-                          className="group flex w-full items-center justify-between gap-3 rounded-lg bg-gradient-to-r from-amber-500 to-amber-700 p-3 shadow-[0_4px_15px_rgba(245,158,11,0.15)] hover:shadow-[0_4px_25px_rgba(245,158,11,0.3)] transition-all cursor-pointer border border-amber-400/30"
+                          className="flex w-full items-center gap-3 md:gap-2.5 rounded-lg px-4 md:px-3 py-4 md:py-2.5 text-left text-base md:text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
                         >
-                          <div className="flex flex-col items-start">
-                            <span className="text-[11px] font-black text-black uppercase tracking-wider leading-tight">Free Plan</span>
-                            <span className="text-[10px] font-medium text-white/90 mt-0.5">Upgrade for full access</span>
-                          </div>
-                          <Crown className="h-4 w-4 text-white group-hover:scale-110 transition-transform" />
+                          <Settings className="h-5 w-5 md:h-4 md:w-4" />
+                          Settings
                         </button>
-                      </div>
-                      
-                      <button 
-                        onClick={() => {
-                          setSettingsOpen(false);
-                          if (onSettingsClick) onSettingsClick();
-                        }}
-                        className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
-                      >
-                        <Settings className="h-4 w-4" />
-                        Settings
-                      </button>
-                      <div className="my-1.5 h-px bg-white/10" />
-                      <button 
-                        onClick={() => {
-                          setSettingsOpen(false);
-                          if (onLogoutClick) onLogoutClick();
-                        }}
-                        className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300"
-                      >
-                        <LogOut className="h-4 w-4" />
-                        Log out
-                      </button>
-                    </motion.div>
+                        <div className="my-2 md:my-1.5 h-px bg-white/10" />
+                        <button 
+                          onClick={() => {
+                            setSettingsOpen(false);
+                            if (onLogoutClick) onLogoutClick();
+                          }}
+                          className="flex w-full items-center gap-3 md:gap-2.5 rounded-lg px-4 md:px-3 py-4 md:py-2.5 text-left text-base md:text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300"
+                        >
+                          <LogOut className="h-5 w-5 md:h-4 md:w-4" />
+                          Log out
+                        </button>
+                      </motion.div>
+                    </>
                   )}
                 </AnimatePresence>
 
